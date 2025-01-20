@@ -10,7 +10,37 @@ public class StudentManagement {
     }
 public String getname()
 {
-    return this.name; 
+    return this.name;
+}
+public String getgrade()
+{
+    return this.grade;
+
+}
+public void setgrade(String grade)
+{
+    this.grade = grade;
+
+}
+public String getroll()
+{
+    return this.rollno;
+
+}
+public void setroll(String rollno)
+{
+    this.rollno = rollno;
+
+}
+public String getcontact()
+{
+    return this.contact;
+
+}
+public void setcontact(String contact)
+{
+    this.contact = contact;
+
 }
     public void getter() {
         
@@ -29,7 +59,22 @@ public String getname()
     }
 
     
- class Studentinformation {
+    class Studentinformation { public int print(int i,int count,Scanner sc,ArrayList<StudentManagement> L){
+        System.out.println("Enter student name to print details"); 
+        
+ String Name = sc.next();
+ for ( i = 0; i < count; i++)
+ {  if (L.get(i).getname().equalsIgnoreCase(Name))
+     {
+      L.get(i).getter();
+         break;
+     }
+     }
+     if(i==count)
+         System.out.println("Student not found");
+     return i;
+ }
+    
 
      public static void main(String[] args)  { 
         ArrayList<StudentManagement> L = new <StudentManagement> ArrayList(2);
@@ -41,9 +86,11 @@ public String getname()
             Scanner sc = new Scanner(System.in);
             System.out.println("1.Add student details");
             System.out.println("2.Display Student information");
+            System.out.println("3.Delete Student Information");
+            System.out.println("4.Edit Student information ");
             System.out.println("please enter a valid number for corresponding responce"); 
             n = sc.nextInt(); 
-            try{ if(n!=1 && n!=2) // FOR SELECTING OPTION IF INVALID THEN EXCEPTION APPEARS
+            try{ if(n!=1 && n!=2 && n!=3 && n!=4) // FOR SELECTING OPTION IF INVALID THEN EXCEPTION APPEARS
                     throw new IllegalArgumentException();
                 TemporaryStorage temp = new TemporaryStorage();
             switch (n) {
@@ -99,7 +146,7 @@ public String getname()
                }
                                             }
 
-         if (!(arr1[i] == 49 || arr1[i] >= 48 && arr1[i] < 58))
+         if (!(arr1[i] == 49 || arr1[i] > 48 && arr1[i] < 58))
 
     {arr1 = null;  throw new InputMismatchException(
                 "exception : INVALID GRADE, GRADE CAN ONLY BE FROM INTEGER 1-12");
@@ -174,22 +221,51 @@ if (i == contact.length())
      break;
                 
  case 2: {
-                    
- System.out.println("Enter student name to print details"); 
+     int j = 0;
+     Studentinformation Si = new Studentinformation(); 
+     Si.print(j, count, sc, L);               
 
- String Name = sc.next();
- for ( i = 0; i < count; i++)
- {  if (L.get(i).getname().equalsIgnoreCase(Name))
-     {
-      L.get(i).getter();
-         break;
-     }
-     }
-     if(i==count)
-     System.out.println("Student not found");
      }
                 
-     break;
+         break;
+     case 3: {
+         int k = 0;
+         Studentinformation si = new Studentinformation();
+         System.out.println("Old information");
+       k=si.print(k, count, sc, L);
+         System.out.println("Do you really want to delete this Student information? yes or No?");
+         String wish = sc.next();
+         if(wish.equalsIgnoreCase("yes"))
+             L.remove(k);
+         System.out.println("Student's Record is deleted.");
+
+     }
+         break;
+     case 4: {int k = 0;
+         Studentinformation si = new Studentinformation();
+         System.out.println("Old information");
+       k=si.print(k, count, sc, L);
+    System.out.println("What do you want to edit pls enter 1 for grade,2 for rollno,3 for contact");
+    n = sc.nextInt();
+    switch (n) {
+        case 1:
+            System.out.println("Old grade is " + L.get(k).getgrade());
+            System.out.println("Enter new grade :");
+            L.get(k).setgrade(sc.next());
+            break;
+        case 2:
+            System.out.println("Old rollno. is " + L.get(k).getroll());
+            System.out.println("Enter new rollno : ");
+            L.get(k).setroll(sc.next());
+            break;
+    case 3: System.out.println("Old ContactNo. is " + L.get(k).getcontact());
+            System.out.println("Enter new CONTACTNO. :");
+            L.get(k).setcontact(sc.next());
+            break;
+    }
+        
+}
+    break;
      default:  System.out.println("Invalid input");
 
      } 
